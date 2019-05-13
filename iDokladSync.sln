@@ -1,0 +1,37 @@
+﻿
+Microsoft Visual Studio Solution File, Format Version 12.00
+# Visual Studio Version 16
+VisualStudioVersion = 16.0.28803.156
+MinimumVisualStudioVersion = 10.0.40219.1
+Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "iDokladSync", "iDokladSync\iDokladSync.csproj", "{E438C7CD-6496-4728-ADD7-B03219166852}"
+EndProject
+Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "IdokladSdk", "..\IDokladSdk\Src\Idoklad\IdokladSdk.csproj", "{AB2647E4-8E5F-4066-A133-7AB882969BD9}"
+EndProject
+Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "SyncTest", "SyncTest\SyncTest.csproj", "{7D689676-4028-4E5C-8E75-DDFB57D86C96}"
+EndProject
+Global
+	GlobalSection(SolutionConfigurationPlatforms) = preSolution
+		Debug|Any CPU = Debug|Any CPU
+		Release|Any CPU = Release|Any CPU
+	EndGlobalSection
+	GlobalSection(ProjectConfigurationPlatforms) = postSolution
+		{E438C7CD-6496-4728-ADD7-B03219166852}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
+		{E438C7CD-6496-4728-ADD7-B03219166852}.Debug|Any CPU.Build.0 = Debug|Any CPU
+		{E438C7CD-6496-4728-ADD7-B03219166852}.Release|Any CPU.ActiveCfg = Release|Any CPU
+		{E438C7CD-6496-4728-ADD7-B03219166852}.Release|Any CPU.Build.0 = Release|Any CPU
+		{AB2647E4-8E5F-4066-A133-7AB882969BD9}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
+		{AB2647E4-8E5F-4066-A133-7AB882969BD9}.Debug|Any CPU.Build.0 = Debug|Any CPU
+		{AB2647E4-8E5F-4066-A133-7AB882969BD9}.Release|Any CPU.ActiveCfg = Release|Any CPU
+		{AB2647E4-8E5F-4066-A133-7AB882969BD9}.Release|Any CPU.Build.0 = Release|Any CPU
+		{7D689676-4028-4E5C-8E75-DDFB57D86C96}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
+		{7D689676-4028-4E5C-8E75-DDFB57D86C96}.Debug|Any CPU.Build.0 = Debug|Any CPU
+		{7D689676-4028-4E5C-8E75-DDFB57D86C96}.Release|Any CPU.ActiveCfg = Release|Any CPU
+		{7D689676-4028-4E5C-8E75-DDFB57D86C96}.Release|Any CPU.Build.0 = Release|Any CPU
+	EndGlobalSection
+	GlobalSection(SolutionProperties) = preSolution
+		HideSolutionNode = FALSE
+	EndGlobalSection
+	GlobalSection(ExtensibilityGlobals) = postSolution
+		SolutionGuid = {B65C72E7-533F-4574-83F9-78D766D9E57A}
+	EndGlobalSection
+EndGlobal
