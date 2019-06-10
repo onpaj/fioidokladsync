@@ -1,0 +1,19 @@
+﻿@model FioSdkCsharp.TransactionFilter
+@{
+    ViewData["Title"] = "Bank";
+}
+
+
+<h1>Import bank</h1>
+
+<form asp-controller="Bank" asp-action="Load" method="post">
+    @Html.DisplayNameFor(model => model.DateFrom)
+    @Html.EditorFor(model => model.DateFrom)
+    @Html.DisplayNameFor(model => model.DateTo)
+    @Html.EditorFor(model => model.DateTo)
+    <button class="btn btn-default">Load</button>
+</form>
+<form asp-controller="Bank" asp-action="LoadRecent" method="post">
+    <button class="btn btn-default">Load recent</button>
+</form>
+

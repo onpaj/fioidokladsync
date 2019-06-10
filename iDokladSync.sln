@@ -9,6 +9,10 @@ Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "IdokladSdk", "..\IDokladSdk
 EndProject
 Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "SyncTest", "SyncTest\SyncTest.csproj", "{7D689676-4028-4E5C-8E75-DDFB57D86C96}"
 EndProject
+Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "iDoklad.tests", "iDoklad.tests\iDoklad.tests.csproj", "{2EDD5D94-47A4-4D88-830A-EDE71064A55C}"
+EndProject
+Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "ImportHebloMVC", "ImportHebloMVC\ImportHebloMVC.csproj", "{CB8F954D-77B9-4660-B148-B02FF7493EFB}"
+EndProject
 Global
 	GlobalSection(SolutionConfigurationPlatforms) = preSolution
 		Debug|Any CPU = Debug|Any CPU
@@ -27,6 +31,14 @@ Global
 		{7D689676-4028-4E5C-8E75-DDFB57D86C96}.Debug|Any CPU.Build.0 = Debug|Any CPU
 		{7D689676-4028-4E5C-8E75-DDFB57D86C96}.Release|Any CPU.ActiveCfg = Release|Any CPU
 		{7D689676-4028-4E5C-8E75-DDFB57D86C96}.Release|Any CPU.Build.0 = Release|Any CPU
+		{2EDD5D94-47A4-4D88-830A-EDE71064A55C}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
+		{2EDD5D94-47A4-4D88-830A-EDE71064A55C}.Debug|Any CPU.Build.0 = Debug|Any CPU
+		{2EDD5D94-47A4-4D88-830A-EDE71064A55C}.Release|Any CPU.ActiveCfg = Release|Any CPU
+		{2EDD5D94-47A4-4D88-830A-EDE71064A55C}.Release|Any CPU.Build.0 = Release|Any CPU
+		{CB8F954D-77B9-4660-B148-B02FF7493EFB}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
+		{CB8F954D-77B9-4660-B148-B02FF7493EFB}.Debug|Any CPU.Build.0 = Debug|Any CPU
+		{CB8F954D-77B9-4660-B148-B02FF7493EFB}.Release|Any CPU.ActiveCfg = Release|Any CPU
+		{CB8F954D-77B9-4660-B148-B02FF7493EFB}.Release|Any CPU.Build.0 = Release|Any CPU
 	EndGlobalSection
 	GlobalSection(SolutionProperties) = preSolution
 		HideSolutionNode = FALSE

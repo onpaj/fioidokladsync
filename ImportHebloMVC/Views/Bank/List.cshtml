@@ -1,0 +1,51 @@
+﻿@model IEnumerable<IdokladSdk.ApiModels.BankStatements.BankPairStatement>
+
+@{
+    ViewData["Title"] = "Bank statements";
+}
+
+<h1>Bank statements</h1>
+
+
+<form asp-controller="Bank" asp-action="Import" method="post">
+    <button class="btn btn-default">Import</button>
+</form>
+
+
+<table class="table">
+    <thead>
+        <tr>
+            <td>
+                @Html.DisplayNameFor(model => model.AccountNumber)
+            </td>
+            <th>
+                @Html.DisplayNameFor(model => model.Amount)
+            </th>
+            <th>
+                @Html.DisplayNameFor(model => model.DateOfTransaction)
+            </th>
+            <th>
+                @Html.DisplayNameFor(model => model.VariableSymbol)
+            </th>
+        </tr>
+    </thead>
+    <tbody>
+        @foreach (var item in Model)
+        {
+            <tr>
+                <td>
+                    @Html.DisplayFor(modelItem => item.AccountNumber) + "/" + @Html.DisplayFor(modelItem => item.BankCode)
+                </td>
+                <td>
+                    @Html.DisplayFor(modelItem => item.Amount)
+                </td>
+                <td>
+                    @Html.DisplayFor(modelItem => item.DateOfTransaction)
+                </td>
+                <td>
+                    @Html.DisplayFor(modelItem => item.VariableSymbol)
+                </td>
+            </tr>
+        }
+    </tbody>
+</table>

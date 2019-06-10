@@ -1,0 +1,90 @@
+﻿@model IEnumerable<IdokladSdk.ApiModels.IssuedInvoiceBase>
+
+@{
+    ViewData["Title"] = "Invoices";
+}
+
+<h1>Invoices</h1>
+
+
+<form asp-controller="Invoices" asp-action="Import" method="post">
+    <button class="btn btn-default">Import</button>
+</form>
+
+
+<table class="table">
+    <thead>
+        <tr>
+            <th>
+                @Html.DisplayNameFor(model => model.Id)
+            </th>
+            <th>
+                @Html.DisplayNameFor(model => model.DateLastChange)
+            </th>
+            <th>
+                @Html.DisplayNameFor(model => model.DateOfAccountingEvent)
+            </th>
+            <th>
+                @Html.DisplayNameFor(model => model.DateOfPayment)
+            </th>
+            <th>
+                @Html.DisplayNameFor(model => model.Description)
+            </th>
+            <th>
+                @Html.DisplayNameFor(model => model.DocumentNumber)
+            </th>
+            <th>
+                @Html.DisplayNameFor(model => model.PaymentStatus)
+            </th>
+            <th>
+                @Html.DisplayNameFor(model => model.TotalWithVat)
+            </th>
+            <th>
+                @Html.DisplayNameFor(model => model.VariableSymbol)
+            </th>
+            <th>
+        </tr>
+    </thead>
+    <tbody>
+        @foreach (var item in Model)
+        {
+            <tr>
+                <td>
+                    @Html.DisplayFor(modelItem => item.Id)
+                </td>
+                <td>
+                    @Html.DisplayFor(modelItem => item.DateLastChange)
+                </td>
+                <td>
+                    @Html.DisplayFor(modelItem => item.DateOfAccountingEvent)
+                </td>
+                <td>
+                    @Html.DisplayFor(modelItem => item.DateOfPayment)
+                </td>
+                <td>
+                    @Html.DisplayFor(modelItem => item.Description)
+                </td>
+                <td>
+                    @Html.DisplayFor(modelItem => item.DocumentNumber)
+                </td>
+                <td>
+                    @Html.DisplayFor(modelItem => item.PaymentStatus)
+                </td>
+                <td>
+                    @Html.DisplayFor(modelItem => item.TotalWithVat)
+                </td>
+                <td>
+                    @Html.DisplayFor(modelItem => item.TotalWithVatHc)
+                </td>
+                <td>
+                    @Html.DisplayFor(modelItem => item.TotalWithoutVat)
+                </td>
+                <td>
+                    @Html.DisplayFor(modelItem => item.VariableSymbol)
+                </td>
+            </tr>
+        }
+    </tbody>
+</table>
+
+

@@ -1,41 +1,39 @@
 using System;
 using System.Collections.Generic;
-using System.Diagnostics;
-using System.Linq;
 using System.Net.Http;
 using FioSdkCsharp;
 using FioSdkCsharp.Models;
-using IdokladSdk;
 using IdokladSdk.ApiModels.BankStatements;
-using IdokladSdk.Clients.Auth;
 using IdokladSdk.Enums;
 using Microsoft.Extensions.Logging;
 using Polly;
 using Polly.Retry;
 using ApiExplorer = FioSdkCsharp.ApiExplorer;
 
-namespace iDokladSync
+namespace iDokladSync.Bank
 {
-    public class FioIdokladSync
+    public class FioBankImporter : IBankImporter
     {
-        private readonly ILogger _logger;
-        private ApiExplorer _fioClient;
-        private IdokladSdk.ApiExplorer _iDokladClient;
+        private readonly IdokladSdk.ApiExplorer _idokladClient;
+        private readonly ApiExplorer _fioClient;
+        private readonly ILogger<FioBankImporter> _logger;
         private RetryPolicy _retryPolicy;
 
-        public FioIdokladSync(ILogger logger, string fioApiKey, string idokladClientId, string iDokladClientSecret)
+        public FioBankImporter(IdokladSdk.ApiExplorer idokladClient, FioSdkCsharp.ApiExplorer fioClient, ILogger<FioBankImporter> logger)
         {
+            _idokladClient = idokladClient;
+            _fioClient = fioClient;
             _logger = logger;
-
-            _fioClient = GetFioApi(fioApiKey);
-            _iDokladClient = GetIdokladApi(idokladClientId, iDokladClientSecret);
 
             _retryPolicy = Policy
                 .Handle<HttpRequestException>()
                 .WaitAndRetry(10, i => TimeSpan.FromSeconds(i * i * i));
         }
 
-        public int Sync(TransactionFilter transactionFilter = null)
+        public List<BankPairStatement> Statements { get; private set; }
+
+
+        public List<BankPairStatement> Load(TransactionFilter transactionFilter = null)
         {
             AccountStatement statements;
             if (transactionFilter == null)
@@ -46,7 +44,7 @@ namespace iDokladSync
             _logger.LogInformation("Loaded {StatementsCount} new statements",
                 statements.TransactionList.Transactions.Count);
 
-            var newStatements = new List<BankPairStatement>();
+            Statements = new List<BankPairStatement>();
 
             foreach (var t in statements.TransactionList.Transactions)
             {
@@ -56,56 +54,36 @@ namespace iDokladSync
                     PartnerBankCode = t.CounterpartBankCode?.Value,
                     CurrencyCode = t.Currency.Value,
                     Amount = Math.Abs(t.Amount.Value),
-                    VariableSymbol = t.VariableSymbol?.Value,
+                    VariableSymbol = t.VariableSymbol?.Value ?? "0", // Variable is required
                     DateOfTransaction = t.Date.Value.Date.AddHours(2), // UTC error in iDoklad
                     MessageForPartner = t.Comment?.Value,
                     MovementType = t.Amount.Value > 0 ? MovementTypeEnum.Entry : MovementTypeEnum.Issue,
                     AccountNumber = statements.Info.AccountId,
                     BankCode = statements.Info.BankId,
-                    
+
                 };
 
-                newStatements.Add(st);
+                Statements.Add(st);
             }
 
+            return Statements;
+        }
 
-            foreach (var stm in newStatements)
+
+        public List<BankPairStatement> Submit()
+        {
+            foreach (var stm in Statements)
             {
                 _retryPolicy.Execute(() =>
                 {
-                    var result = _iDokladClient.BankStatements.Pair(stm);
+                    var result = _idokladClient.BankStatements.Pair(stm);
                     _logger.LogInformation(
                         "Submitted new statement with result: {Result}. no. {Id} ({VS} | {Amount}). Reason: {Message}",
                         result.WasPaired, stm.PartnerAccountNumber, stm.VariableSymbol, stm.Amount, result.Message);
                 });
             }
 
-
-            return newStatements.Count();
+            return Statements;
         }
-
-
-        public FioSdkCsharp.ApiExplorer GetFioApi(string apiKey)
-        {
-            var explorer = new FioSdkCsharp.ApiExplorer(apiKey);
-
-            return explorer;
-        }
-
-
-        public IdokladSdk.ApiExplorer GetIdokladApi(string clientId, string clientSecret)
-        {
-            var credentials = new ClientCredentialAuth(clientId, clientSecret);
-
-            var apiContext = new ApiContext(credentials)
-            {
-                AppName = "iDoklad",
-            };
-
-            var explorer = new IdokladSdk.ApiExplorer(apiContext);
-
-            return explorer;
-        }
-
     }
 }
